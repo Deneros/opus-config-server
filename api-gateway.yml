@@ -4,25 +4,24 @@ server:
 spring:
   application:
     name: api-gateway
+
   cloud:
     config:
       uri: http://config-server:8888
       fail-fast: true
-    gateway:
-      routes:
-        - id: chat-service
-          uri: lb://CHAT-SERVICE
-          predicates:
-            - Path=/chat/**
 
-  discovery:
-    locator:
-      enabled: true
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
 
 eureka:
   client:
     service-url:
       defaultZone: http://eureka-server:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
 
 logging:
   level:
